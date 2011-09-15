@@ -1,0 +1,4 @@
+/Catalyst-Plugin-Session-Store-PSGI*.tar.gz
+/Catalyst-Plugin-Session-Store-PSGI*/
+/.build/
+.*sw?
