@@ -2,8 +2,40 @@ package Catalyst::Plugin::Session::Store::PSGI;
 use strict;
 use warnings;
 
+=head1 EXPERIMENTAL
+
+This distribution should be considered B<experimental>. Although functional, it
+may break in currently undiscovered use cases.
+
+=cut
+
 use base qw/Catalyst::Plugin::Session::Store/;
 
+=head1 SYNOPSIS
+
+    use Catalyst qw/
+        Session
+        Session::State::PSGI
+        Session::Store::PSGI
+    /;
+
+=cut
+
+=head1 DESCRIPTION
+
+An alternative session storage plugin that allows sharing of the PSGI/Plack session information.
+
+=cut
+
+=head1 METHODS
+
+The plugin provides the following methods:
+
+=cut
+
+=head2 get_session_data
+
+=cut
 sub get_session_data {
     my ($c, $id) = @_;
 
@@ -24,6 +56,9 @@ sub get_session_data {
     return;
 }
 
+=head2 store_session_data
+
+=cut
 sub store_session_data {
     my ($c, $id, $data) = @_;
 
@@ -36,7 +71,18 @@ sub store_session_data {
     $psgi_env->{_psgi_section($id)} = $data;
 }
 
+=head2 delete_session_data
+
+This method is NOOP - session data should be deleted by L<Plack::Middleware::Session>
+
+=cut
 sub delete_session_data     { } # unsupported
+
+=head2 delete_expired_sessions
+
+This method is NOOP - sessions should be expired by L<Plack::Middleware::Session>
+
+=cut
 sub delete_expired_sessions { } # unsupported
 
 sub _psgi_section {
