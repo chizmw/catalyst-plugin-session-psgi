@@ -1,3 +1,6 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+ - initial release
+ - use PSGI/Plack environment for session data
+ - document obvious areas of concern
