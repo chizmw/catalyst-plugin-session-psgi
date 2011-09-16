@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.0.1     2011-09-16 14:33:28 Europe/London
  - initial release
  - use PSGI/Plack environment for session data
  - document obvious areas of concern
