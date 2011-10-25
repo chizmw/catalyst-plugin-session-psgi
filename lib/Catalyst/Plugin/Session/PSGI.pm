@@ -75,8 +75,8 @@ it works and I'm open to clue-sticks and patches.
         return time() + $expires;
     }
 
-worries me because I cahve no idea where the value for
-C<$c->_session_plugin_config->{expires}> is being initialised. I'm concerned
+worries me because I have no idea where the value for
+C<< $c->_session_plugin_config->{expires} >> is being initialised. I'm concerned
 that this may become C<0> when you least expect it and start expiring all
 sessions.
 
