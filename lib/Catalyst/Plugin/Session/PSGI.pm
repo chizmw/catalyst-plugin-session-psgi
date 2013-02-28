@@ -2,6 +2,19 @@ package Catalyst::Plugin::Session::PSGI;
 use strict;
 use warnings;
 
+=head2 _psgi_env
+
+Fetches the psgi env globally from the request env
+
+=cut
+
+sub _psgi_env {
+    my ( $c ) = @_;
+
+    return $c->request->can('env') ? $c->request->env : $c->request->{_psgi_env};
+}
+
+
 =head1 EXPERIMENTAL
 
 This distribution should be considered B<experimental>. Although functional, it

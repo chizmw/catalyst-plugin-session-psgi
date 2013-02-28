@@ -2,6 +2,8 @@ package Catalyst::Plugin::Session::Store::PSGI;
 use strict;
 use warnings;
 
+use Catalyst::Plugin::Session::PSGI;
+
 =head1 EXPERIMENTAL
 
 This distribution should be considered B<experimental>. Although functional, it
@@ -40,7 +42,7 @@ sub get_session_data {
     my ($c, $id) = @_;
 
     # grab the PSGI environment
-    my $psgi_env = $c->request->{_psgi_env};
+    my $psgi_env = Catalyst::Plugin::Session::PSGI::_psgi_env($c);
     return
         unless defined $psgi_env;
 
@@ -63,7 +65,7 @@ sub store_session_data {
     my ($c, $id, $data) = @_;
 
     # grab the PSGI environment
-    my $psgi_env = $c->request->{_psgi_env};
+    my $psgi_env = Catalyst::Plugin::Session::PSGI::_psgi_env($c);
     return
         unless defined $psgi_env;
 

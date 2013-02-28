@@ -2,6 +2,8 @@ package Catalyst::Plugin::Session::State::PSGI;
 use strict;
 use warnings;
 
+use Catalyst::Plugin::Session::PSGI;
+
 =head1 EXPERIMENTAL
 
 This distribution should be considered B<experimental>. Although functional, it
@@ -10,6 +12,7 @@ may break in currently undiscovered use cases.
 =cut
 
 use base qw/Catalyst::Plugin::Session::State/;
+
 
 =head1 SYNOPSIS
 
@@ -54,7 +57,7 @@ This method retrieves the session-id from the PSGI/Plack environment information
 =cut
 sub get_session_id {
     my $c = shift;
-    my $psgi_env = $c->request->{_psgi_env};
+    my $psgi_env = Catalyst::Plugin::Session::PSGI::_psgi_env($c);
 
     return
         unless defined $psgi_env;
