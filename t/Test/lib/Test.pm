@@ -19,6 +19,11 @@ use Catalyst::Runtime 5.80;
 use Catalyst qw/
     -Debug
     ConfigLoader
+
+    Session
+    Session::State::PSGI
+    Session::Store::PSGI
+    
     Static::Simple
 /;
 

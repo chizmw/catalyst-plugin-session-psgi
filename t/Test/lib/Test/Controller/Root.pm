@@ -29,8 +29,12 @@ The root page (/)
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
+    my $all_requests = $c->session->{count}++;
+    my $cat_requests = $c->session->{count_catalyst}++;
     # Hello World
-    $c->response->body( $c->welcome_message );
+    $c->response->body( 
+        "Hello CATALYST $cat_requests of your $all_requests have been made via session " . $c->sessionid . ' <a href="/plack/">see plack</a>' 
+    );
 }
 
 =head2 default

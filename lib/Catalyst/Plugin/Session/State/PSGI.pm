@@ -108,7 +108,10 @@ sub delete_session_id   { } # unsupported
 
 L<Catalyst::Plugin::Session::PSGI>,
 
-1;
 # ABSTRACT: Session plugin for access to PSGI/Plack session
+=cut
+
+1;
+
 __END__
 # vim: ts=8 sts=4 et sw=4 sr sta
