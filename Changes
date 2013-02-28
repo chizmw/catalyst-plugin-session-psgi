@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+ - apply _psgi_env() patch (RT#83685) [KOKI]
 
 0.0.1     2011-09-16 14:33:28 Europe/London
  - initial release
