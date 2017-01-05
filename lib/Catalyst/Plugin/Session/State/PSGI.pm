@@ -68,7 +68,7 @@ sub get_session_id {
     $c->maybe::next::method( @_ );
 }
 
-=head2
+=head2 get_session_expires
 
 This methis returns the time, in epoch seconds, when the session expires.
 
