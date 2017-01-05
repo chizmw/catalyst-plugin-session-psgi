@@ -2,3 +2,4 @@
 /Catalyst-Plugin-Session-PSGI*/
 /.build/
 .*sw?
+.prove
