@@ -1,10 +1,11 @@
-# NAME
+## \_psgi\_env
 
-Catalyst::Plugin::Session::PSGI - minimal configuration access to PSGI/Plack session (EXPERIMENTAL)
+Fetches the psgi env globally from the request env
 
-# VERSION
+# EXPERIMENTAL
 
-version 0.0.1
+This distribution should be considered **experimental**. Although functional, it
+may break in currently undiscovered use cases.
 
 # SYNOPSIS
 
@@ -17,19 +18,14 @@ PSGI session as follows:
         Session::Store::PSGI
     /;
 
-# EXPERIMENTAL
-
-This distribution should be considered __experimental__. Although functional, it
-may break in currently undiscovered use cases.
-
 # SUMMARY
 
-If you are running your [Catalyst](http://search.cpan.org/perldoc?Catalyst) application in a Plack/PSGI environment and
-using [Plack::Middleware::Session](http://search.cpan.org/perldoc?Plack::Middleware::Session) you might want to consider using the
+If you are running your [Catalyst](https://metacpan.org/pod/Catalyst) application in a Plack/PSGI environment and
+using [Plack::Middleware::Session](https://metacpan.org/pod/Plack::Middleware::Session) you might want to consider using the
 session information in the PSGI environment.
 
-The [Catalyst::Plugin::Session::State::PSGI](http://search.cpan.org/perldoc?Catalyst::Plugin::Session::State::PSGI) and
-[Catalyst::Plugin::Session::Store::PSGI](http://search.cpan.org/perldoc?Catalyst::Plugin::Session::Store::PSGI) modules access the
+The [Catalyst::Plugin::Session::State::PSGI](https://metacpan.org/pod/Catalyst::Plugin::Session::State::PSGI) and
+[Catalyst::Plugin::Session::Store::PSGI](https://metacpan.org/pod/Catalyst::Plugin::Session::Store::PSGI) modules access the
 _psgix.session.options_ and _psgix.session_ data to provide the Catalyst
 session.
 
@@ -40,65 +36,54 @@ glaring areas of concern:
 
 - session expiry
 
-I currently believe that it should be the responsibility of the [Plack](http://search.cpan.org/perldoc?Plack)
-middleware to expire and clear session data. As far as possible this
-functionality is unimplemented and unsupported in this distribution.
+    I currently believe that it should be the responsibility of the [Plack](https://metacpan.org/pod/Plack)
+    middleware to expire and clear session data. As far as possible this
+    functionality is unimplemented and unsupported in this distribution.
 
 - session expiry value initialisation
 
-There was a problem with the session expiry value being unset in the Catalyst
-related code. This led to sessions always being deleted/expired and never
-working properly.
+    There was a problem with the session expiry value being unset in the Catalyst
+    related code. This led to sessions always being deleted/expired and never
+    working properly.
 
-There are a couple of dubious areas to resolve this.
+    There are a couple of dubious areas to resolve this.
 
-    sub get_session_data {
-        # ...
+        sub get_session_data {
+            # ...
 
-        # TODO: work out correct place to initialise this
-        $psgi_env->{'psgix.session.expires'}
-            ||= $c->get_session_expires;
+            # TODO: work out correct place to initialise this
+            $psgi_env->{'psgix.session.expires'}
+                ||= $c->get_session_expires;
 
-        # ...
-    }
+            # ...
+        }
 
-is almost certainly the wrong time and place to be initialising this value, but
-it works and I'm open to clue-sticks and patches.
+    is almost certainly the wrong time and place to be initialising this value, but
+    it works and I'm open to clue-sticks and patches.
 
-    sub get_session_expires {
-        my $c = shift;
-        my $expires = $c->_session_plugin_config->{expires} || 0;
-        return time() + $expires;
-    }
+        sub get_session_expires {
+            my $c = shift;
+            my $expires = $c->_session_plugin_config->{expires} || 0;
+            return time() + $expires;
+        }
 
-worries me because I cahve no idea where the value for
-`$c-`_session_plugin_config->{expires}> is being initialised. I'm concerned
-that this may become `0` when you least expect it and start expiring all
-sessions.
+    worries me because I have no idea where the value for
+    `$c->_session_plugin_config->{expires}` is being initialised. I'm concerned
+    that this may become `0` when you least expect it and start expiring all
+    sessions.
 
 - (lack of) test coverage
 
-Other than basic sanity tests provided by [Dist::Zilla](http://search.cpan.org/perldoc?Dist::Zilla) this distribution __has no tests__!
+    Other than basic sanity tests provided by [Dist::Zilla](https://metacpan.org/pod/Dist::Zilla) this distribution **has no tests**!
 
-I haven't found the time to mock up a plack-catalyst test suite to ensure the
-session is doing the right thing. Once again I'm open to clue-sticks and
-patches.
+    I haven't found the time to mock up a plack-catalyst test suite to ensure the
+    session is doing the right thing. Once again I'm open to clue-sticks and
+    patches.
 
 # SEE ALSO
 
-[Catalyst](http://search.cpan.org/perldoc?Catalyst),
-[Catalyst::Plugin::Session](http://search.cpan.org/perldoc?Catalyst::Plugin::Session),
-[Plack::Middleware::Session](http://search.cpan.org/perldoc?Plack::Middleware::Session),
-[Catalyst::Plugin::Session::State::PSGI](http://search.cpan.org/perldoc?Catalyst::Plugin::Session::State::PSGI),
-[Catalyst::Plugin::Session::Store::PSGI](http://search.cpan.org/perldoc?Catalyst::Plugin::Session::Store::PSGI)
-
-# AUTHOR
-
-Chisel <chisel@chizography.net>
-
-# COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2011 by Chisel Wright.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+[Catalyst](https://metacpan.org/pod/Catalyst),
+[Catalyst::Plugin::Session](https://metacpan.org/pod/Catalyst::Plugin::Session),
+[Plack::Middleware::Session](https://metacpan.org/pod/Plack::Middleware::Session),
+[Catalyst::Plugin::Session::State::PSGI](https://metacpan.org/pod/Catalyst::Plugin::Session::State::PSGI),
+[Catalyst::Plugin::Session::Store::PSGI](https://metacpan.org/pod/Catalyst::Plugin::Session::Store::PSGI)
